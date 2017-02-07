@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<link rel="stylesheet" type="text/css"
+				href="https://fonts.googleapis.com/css?family=Anton">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" charset="utf-8"></script>
+<script src="jquery.simpleWeather.js" charset="utf-8"></script>
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<style>
+
+html{
+  min-height:100%;
+    position:relative;
+}
+body{
+background-color:black;
+}
+#center{
+	font-family: 'Anton', sans-serif;
+	background-color:#000000;
+	position:absolute;
+	font-size: 900%;
+	color: white;
+  width: auto;
+  height: auto;
+  z-index: 10;
+  top: 40%;
+  left: 35%;
+  margin: -100px 0 0 -150px;
+  float: left;
+
+ }
+
+
+ .fisrstDiv {
+          float: left;
+          display:inline-block;
+        }
+ .secondDiv {
+          float: right;
+          display:inline-block;
+        }
+ #day{
+ 	font-family:'Anton', sans-serif;
+	background-color:#000000;
+	font-size: 40%;
+
+#weather  {
+  font-family: 'Anton', sans-serif;
+
+
+}
+
+ .footer{
+ float: right;}
+
+</style>
+
+
+<body onload = "clock(); setInterval('clock()', 1000)">
+
+<div data-role="page" id="pageone">
+
+
+  <div data-role="main" class="ui-content">
+
+    <a href="#pagetwo" data-transition="slide">
+			<div id="box">
+
+
+				<div id="center">
+					<div id="clock" class="firstDiv">@nbsp; </div>
+					<div id = "ma" class="secondDiv"></div>
+					<div id="day" >@nbsp;</div>
+
+				</div>
+
+
+				<div id="weather"
+				style="font-size: xx-large;
+				color: white;
+				display: block;
+				    float:right;
+				    position:relative;
+				    top:30px;
+				    right: 10%;
+				    height: 20px;">
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+			 </div>
+
+
+
+
+
+
+		</a>
+  </div>
+
+
+</div>
+
+<div data-role="page" id="pagetwo">
+
+
+  <div data-role="main" class="ui-content">
+
+    <a href="#pageone" data-transition="slide" data-direction="reverse">
+			<div id="box"> </div>
+		</a>
+  </div>
+
+  <div data-role="footer">
+    <h1>Footer Text</h1>
+  </div>
+</div>
+<style>
+
+#box{
+	background-color: black;
+width: 100%;
+height: 500px;
+}
+</style>
+
+
+
+<script>
+
+function clock(){
+	var ct = new Date();
+	var ch = ct.getHours();
+	var cm = ct.getMinutes();
+	var cs = ct.getSeconds();
+
+	var weekday = new Array(7);
+	weekday[0] =  "Sun";
+	weekday[1] = "Mon";
+	weekday[2] = "Tue";
+	weekday[3] = "Wed";
+	weekday[4] = "Thu";
+	weekday[5] = "Fri";
+	weekday[6] = "Sat";
+	var n = weekday[ct.getDay()];
+	var month = new Array();
+	month[0] = "Jan";
+	month[1] = "Feb";
+	month[2] = "Mar";
+	month[3] = "Apr";
+	month[4] = "May";
+	month[5] = "Jun";
+	month[6] = "Jul";
+	month[7] = "Aug";
+	month[8] = "Sep";
+	month[9] = "Oct";
+	month[10] = "No";
+	month[11] = "De";
+	var m = month[ct.getMonth()];
+
+	var date = ct.getDate();
+	var year = ct.getFullYear();
+
+	var week = date + "-"  + m+ "-"+year+"\t\t"+ n;
+
+	cm = (cm < 10? "0" : "") + cm;
+	cs = (cs < 10 ? "0" : "") + cs;
+
+	var timeOfDay = (ch < 12) ? "  AM" : "  PM";
+	ch = (ch >12) ? ch -12 : ch;
+	ch =(ch ==0) ? 12 :ch;
+
+	var currentTimeString = ch + ": " + cm + ": " + cs + " ";
+
+	document.getElementById("clock").innerHTML = currentTimeString;
+	document.getElementById("ma").innerHTML = timeOfDay;
+
+	document.getElementById("day").innerHTML = week;
+
+}
+
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  getWeather(); //Get the initial weather.
+  setInterval(getWeather, 1000); //Update the weather every 10 minutes.
+});
+
+function getWeather() {
+
+  $.simpleWeather({
+    location: 'Auckland Ack',
+    unit: 'c',
+    success: function(weather) {
+	var temp = weather.temp+'&deg;'+weather.units.temp+'<br>'+ weather.region;
+	document.getElementById("weather").innerHTML = temp;
+
+      //html = '<h1>'+weather.temp+'&deg;'+weather.units.temp+'</h1>';
+      //html += '<ul><li>'+weather.city+', '+weather.region+'</li>';
+      //html += '<li class="currently">'+weather.currently+'</li>';
+
+      //$("#weather").html(html);
+    },
+    error: function(error) {
+      $("#weather").html('<p>'+error+'</p>');
+    }
+  });
+}
+
+
+
+</script>
+
+
+
+</body>
+</html>

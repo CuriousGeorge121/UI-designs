@@ -59,14 +59,22 @@
 	</style>
 
 	<body onload = "clock(); setInterval('clock()', 1000)">
-		<div id="center">
-			<div id="clock" class="firstDiv">@nbsp; </div>
-			<div id = "ma" class="secondDiv"></div>
-			<div id="day" >@nbsp;</div> 
-		</div>
+		<div data-role="page" id="pageone">
+			<div id="center">
+				<div id="clock" class="firstDiv">@nbsp; </div>
+				<div id = "ma" class="secondDiv"></div>
+				<div id="day" >@nbsp;</div>
+				<a href="#pagetwo" data-transition="slide">Slide to Page Two</a>
+			</div>
 
-		<div id="weather" style="font-size: xx-large; color: white; display: block;
-			float:right; position:relative; top:30px; right: 10%; height: 20px;">
+			<div id="weather" style="font-size: xx-large; color: white; display: block;
+				float:right; position:relative; top:30px; right: 10%; height: 20px;">
+				
+			</div>
+		</div>
+		<div data-role="page" id="pagetwo">
+			<p>Page Two</p>
+			<a href="#pageone" data-transition="slide" data-direction="reverse">Slide to Page One (reversed)</a>
 		</div>
 	</body>
 </html>
